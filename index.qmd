@@ -1,0 +1,28 @@
+
+---
+title: "منصة سند للدعم المدرسي"
+format: html
+editor: visual
+---
+
+```{r}
+library(plotly)
+library(DT)
+library(tidyverse)
+
+# مثال على بيانات الدعم
+data <- data.frame(
+  الكلية = c("تربية القاهرة", "تربية عين شمس", "تربية المنيا"),
+  عدد_الاستشارات = c(35, 50, 28),
+  عدد_المدارس_المربوطة = c(10, 15, 8)
+)
+
+datatable(data, options = list(pageLength = 5, language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Arabic.json')))
+```
+
+```{r}
+# رسم بياني تفاعلي
+plot_ly(data, x = ~الكلية, y = ~عدد_الاستشارات, type = 'bar', name = 'الاستشارات') %>%
+  add_trace(y = ~عدد_المدارس_المربوطة, name = 'المدارس') %>%
+  layout(yaxis = list(title = 'عدد'), barmode = 'group')
+```
